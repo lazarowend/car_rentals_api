@@ -3,7 +3,7 @@ import { SpecificationsRepository } from 'modules/cars/repositories/implementati
 import { CreateSpecificationController } from './CreateSpecificationController';
 import { CreateSpecificationUseCase } from './CreateSpecificationUseCase';
 
-const specificationRepository = SpecificationsRepository.getIstance();
+const specificationRepository = new SpecificationsRepository();
 const createSpecifictionUseCase = new CreateSpecificationUseCase(
   specificationRepository,
 );
