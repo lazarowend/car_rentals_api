@@ -1,12 +1,13 @@
-import { ISpecificationsRepository } from '../repositories/ISpecificationsRepository';
+import { ISpecificationsRepository } from 'modules/cars/repositories/ISpecificationsRepository';
 
 interface IResquest {
   name: string;
   description: string;
 }
 
-class CreateSpecificationService {
+class CreateSpecificationUseCase {
   constructor(private specificationRepository: ISpecificationsRepository) {}
+
   execute({ name, description }: IResquest): void {
     const specificationAlreadyExists =
       this.specificationRepository.findByName(name);
@@ -22,4 +23,4 @@ class CreateSpecificationService {
   }
 }
 
-export { CreateSpecificationService };
+export { CreateSpecificationUseCase };
