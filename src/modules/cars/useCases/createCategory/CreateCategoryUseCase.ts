@@ -1,4 +1,3 @@
-import { CategoriesRepository } from 'modules/cars/repositories/CategoriesRepository';
 import { ICategoriesRepository } from 'modules/cars/repositories/ICategoriesRepository';
 
 interface IResquest {
@@ -6,12 +5,11 @@ interface IResquest {
   description: string;
 }
 
-class CreateCategoryService {
+class CreateCategoryUseCase {
   constructor(private categoriesRepository: ICategoriesRepository) {}
 
   execute({ name, description }: IResquest): void {
-    const categoriesRepository = new CategoriesRepository();
-    const categoryAlreadyExists = categoriesRepository.findByName(name);
+    const categoryAlreadyExists = this.categoriesRepository.findByName(name);
 
     if (categoryAlreadyExists) {
       throw new Error('Category already exists');
@@ -21,4 +19,4 @@ class CreateCategoryService {
   }
 }
 
-export { CreateCategoryService };
+export { CreateCategoryUseCase };
