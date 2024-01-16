@@ -1,6 +1,55 @@
+import { parse as csvParse } from 'csv-parse';
+import fs from 'fs';
+import { ICategoriesRepository } from 'modules/cars/repositories/ICategoriesRepository';
+
+interface IImportCategory {
+  name: string;
+  description: string;
+}
+
 class ImportCategoryUseCase {
-  execute(file: any): void {
-    console.log(file);
+  constructor(private categoriesRepository: ICategoriesRepository) {}
+
+  loadCategory(file: Express.Multer.File): Promise<IImportCategory[]> {
+    return new Promise((resolve, reject) => {
+      const categories: IImportCategory[] = [];
+
+      const stream = fs.createReadStream(file.path);
+
+      const parseFile = csvParse();
+
+      stream.pipe(parseFile);
+
+      parseFile
+        .on('data', async (line) => {
+          const [name, description] = line;
+          categories.push({
+            name,
+            description,
+          });
+        })
+        .on('end', () => {
+          resolve(categories);
+        })
+        .on('errir', (err) => {
+          reject(err);
+        });
+    });
+  }
+  async execute(file: Express.Multer.File): Promise<void> {
+    const categories = await this.loadCategory(file);
+
+    categories.map(async (category) => {
+      const { name, description } = category;
+      const existCategory = this.categoriesRepository.findByName(name);
+
+      if (!existCategory) {
+        this.categoriesRepository.create({
+          name,
+          description,
+        });
+      }
+    });
   }
 }
 
