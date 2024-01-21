@@ -4,7 +4,7 @@ class Specification {
   id?: string = '';
   name: string = '';
   description: string = '';
-  created_at: Date = new Date();
+  created_at?: Date;
 
   constructor() {
     if (!this.id) {

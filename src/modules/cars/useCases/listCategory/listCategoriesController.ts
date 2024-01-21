@@ -5,10 +5,13 @@ import { ListCategoriesUseCase } from './listCategoriesUseCase';
 class ListCategoriesController {
   constructor(private listCategoriesUseCase: ListCategoriesUseCase) {}
 
-  handle(_request: Request, response: Response): Response {
-    const all = this.listCategoriesUseCase.execute();
-
-    return response.json({ all });
+  async handle(_request: Request, response: Response): Promise<Response> {
+    try {
+      const all = await this.listCategoriesUseCase.execute();
+      return response.json({ all });
+    } catch (error) {
+      return response.status(500).json({ error: 'Internal Server Error' });
+    }
   }
 }
 

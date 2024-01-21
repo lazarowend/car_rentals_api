@@ -4,7 +4,7 @@ import { ICategoriesRepository } from 'modules/cars/repositories/ICategoriesRepo
 class ListCategoriesUseCase {
   constructor(private categoryRepository: ICategoriesRepository) {}
 
-  execute(): Category[] {
+  execute(): Promise<Category[]> {
     const categories = this.categoryRepository.list();
 
     return categories;
