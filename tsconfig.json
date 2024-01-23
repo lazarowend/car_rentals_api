@@ -27,7 +27,8 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
 
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "experimentalDecorators": true
   },
   "include": ["src/**/*"],
   "exclude": [

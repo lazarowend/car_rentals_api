@@ -45,8 +45,10 @@
     "pg": "^8.11.3",
     "pg-hstore": "^2.3.4",
     "prisma": "^5.8.1",
+    "reflect-metadata": "^0.2.1",
     "swagger-ui-express": "^5.0.0",
     "ts-node-dev": "^2.0.0",
+    "tsyringe": "^4.8.0",
     "uuid": "^9.0.1"
   }
 }
